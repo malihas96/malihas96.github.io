@@ -1,0 +1,16 @@
+name: "Yay internet!"
+output_dir: "."
+navbar:
+  title: "Home"
+  right:
+    - text: "About"       # alot of different fonts come from the website fontawesome.com and can copy the code for that font/their color
+      href: about.html
+    - text: "Plots"       # alot of different fonts come from the website fontawesome.com and can copy the code for that font/their color
+      href: plots.html
+    - icon: fa-envelope fa-lg
+      href: malihasafdar1996@gmail.com>
+    - icon: fa-github fa-lg
+      href: http://github.com/malihas96.io/
+output:
+  html_document:
+    theme: cerulean
