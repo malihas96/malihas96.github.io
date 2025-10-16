@@ -13,4 +13,4 @@ navbar:
       href: http://github.com/malihas96.io/
 output:
   html_document:
-    theme: cerulean
+    theme: cosmo #the website to select different themes is bootswatch, changed from cereluan to minty
