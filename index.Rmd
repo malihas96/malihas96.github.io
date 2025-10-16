@@ -7,7 +7,7 @@ output:
     theme: cosmo #the website to select different themes is bootswatch
 ---
 
-# This is Jeff's awesome website
+# This is my awesome website
 
 ![](https://media.giphy.com/media/drXGoW1iudhKw/giphy.gif)
 
