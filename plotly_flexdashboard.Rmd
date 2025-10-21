@@ -20,7 +20,7 @@ nyc_airbnb =
   nyc_airbnb |> 
   mutate(rating = review_scores_location / 2) |>
   select(
-    neighbourhood_group, neighbourhood, rating, price, room_type, lat, long) |>
+    neighbourhood_group, neighbourhood, rating, price, room_type, lat, long) |> #focus on only things that we need for the plotly
   filter(
     !is.na(rating), 
     neighbourhood_group == "Manhattan",
@@ -40,6 +40,7 @@ The type of plot is scatter, which has several “modes”: markers produces the
 
 
 ```{r}
+#mode can be "markers" or "lines". Difference b/w ggplot and plotly is you can hover over and see the values and be able to zoom in. For the text_lable, when you hover over the plot, for each point it shows you price and rating. /n is used infront of Rating so that price and rating shows up on different lines.
 nyc_airbnb |>
   mutate(text_label = str_c("Price: $", price, "\nRating: ", rating)) |> 
   plot_ly(
@@ -76,3 +77,40 @@ nyc_airbnb |>
 `Interactivity in bar charts is kinda neat, but needs a bit more justification – you can zoom, which helps in some cases, or you could build in some addition information in hover text.`
 
 ### ggplotly
+
+`You can convert a ggplot object straight to an interactive graphic using ggplotly.
+
+For example, the code below recreates our scatterplot using ggplot followed by ggplotly`
+
+```{r}
+scatter_ggplot = 
+  nyc_airbnb |>
+  ggplot(aes(x = lat, y = long, color = price)) +
+  geom_point(alpha = 0.25) +
+  coord_cartesian()
+
+ggplotly(scatter_ggplot)
+```
+
+`We can recreate our boxplot in a similar way.`
+
+
+```{r}
+box_ggplot = 
+  nyc_airbnb |> 
+  mutate(neighbourhood = fct_reorder(neighbourhood, price)) |> 
+  ggplot(aes(x = neighbourhood, y = price, fill = neighbourhood)) +
+  geom_boxplot() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+
+ggplotly(box_ggplot)
+```
+
+`If I really want an interactive plot to look good, I’ll use plot_ly to build it – ggplot was designed with static plots in mind, and the formatting and behavior of ggplotly is less visually appealing (to me) than plot_ly.
+
+I use ggplot for static plots, and I make static plots way, way more frequently than interactive plots. Sometimes I’ll use ggplotly on top of that for some quick interactivity; this can be handy to do some zooming or inspect outlying features.`
+
+
+### flexdashboard
+
+
